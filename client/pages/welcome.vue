@@ -1,0 +1,72 @@
+<template>
+  <v-sheet width="100%" min-height="100%" style="background : linear-gradient(100deg, rgba(217, 215, 66, 1) 0%, rgba(240, 158, 0, 1) 100%)">
+    <v-row justify="center" align-content="center" align="center" style="min-height : 100%">
+      <v-col cols="6">
+        <v-card>
+          <v-toolbar>
+            <v-toolbar-title class="title">WELCOME TO SUITERUS TECHNOLOGIES INC.`s <br>FRONTEND TEMPLATE</v-toolbar-title>
+          </v-toolbar>
+          <v-card-text>
+            <p>Features : </p>
+            <ul>
+              <li>SPA or SSR enabled.</li>
+              <li>Vuex, Vue-Router, & Vue JS enabled.</li>
+              <li>Vuetify JS enabled.</li>
+              <li>Customizable Layout per page.</li>
+              <li>Customizable middleware and router.</li>
+            </ul>
+            <br>
+            <p>Created by Roldhan Dasalla.</p>
+            <p>Dependecy template : <a href="https://github.com/cretueusebiu/laravel-nuxt" target="_blank">https://github.com/cretueusebiu/laravel-nuxt</a></p>
+          </v-card-text>
+          <v-card-actions style="border-top : 2px solid #222">
+            <span class="title">Sample Routes : </span>
+            <v-spacer></v-spacer>
+            <v-btn link class="mr-2" :to="{ name : 'login' }">LOGIN</v-btn>
+            <v-btn link :to="{ name : 'register' }">REGISTER</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-sheet>
+</template>
+
+<script>
+import { mapGetters } from 'vuex'
+
+export default {
+  layout: 'simple',
+
+  data: () => ({
+    title: process.env.appName
+  }),
+
+  head () {
+    return { title: this.$t('home') }
+  },
+
+  computed: mapGetters({
+    authenticated: 'auth/check'
+  })
+}
+</script>
+
+<style scoped>
+.top-right {
+  position: absolute;
+  right: 10px;
+  top: 18px;
+}
+
+.title {
+  font-size: 85px;
+}
+
+.laravel {
+  color: #2e495e;
+}
+
+.nuxt {
+  color: #00c48d;
+}
+</style>
