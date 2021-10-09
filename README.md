@@ -17,7 +17,7 @@ APP_URL="localhost:8000" #you can also put here your api domain/url.
 CLIENT_URL="localhost:3000"
 ```
 
-##USAGE
+## USAGE
 Run in Development Mode
 ```
 npm run dev
