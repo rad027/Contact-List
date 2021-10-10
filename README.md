@@ -4,7 +4,8 @@ This git repo is exclusive for the employees of Suiterus Technologies INC. only.
 
 ## INSTALLATION
 ```
-git clone <repo_url>
+git clone <repo_url> '<folder_name_here>
+cd <folder_name_here>
 npm install
 
 # copy .env.example file
