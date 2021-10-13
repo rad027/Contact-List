@@ -1,15 +1,26 @@
 require('dotenv').config()
-const { join } = require('path')
+const { join, resolve } = require('path')
 const { copySync, removeSync } = require('fs-extra')
+import fs from 'fs'
 
 module.exports = {
-  ssr: true,
+
+  server: {
+    hosname : 'project-dokyumento.test',
+    port: 1027, // default: 3000,
+    https: {
+      key: fs.readFileSync(resolve('/webserver/', 'localhost3.key')),
+      cert: fs.readFileSync(resolve('/webserver/', 'localhost3.crt'))
+    }
+  },
+
+  ssr: false,
 
   srcDir: __dirname,
 
   env: {
     apiUrl: process.env.API_URL || process.env.APP_URL + '/api',
-    appName: process.env.APP_NAME || 'Laravel Nuxt',
+    appName: process.env.APP_NAME || 'STI - Project Frontend Template',
     appLocale: process.env.APP_LOCALE || 'en',
     githubAuth: !!process.env.GITHUB_CLIENT_ID
   },
@@ -20,7 +31,7 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Nuxt.js project' }
+      { hid: 'description', name: 'description', content: 'STI - Project Frontend Template' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -48,7 +59,7 @@ module.exports = {
 
   modules: [
     '@nuxtjs/router',
-    '@nuxtjs/vuetify',
+    '@nuxtjs/vuetify'
   ],
 
   build: {
@@ -60,9 +71,9 @@ module.exports = {
       done (generator) {
         // Copy dist files to public/_nuxt
         if (generator.nuxt.options.dev === false && generator.nuxt.options.mode === 'spa') {
-          const publicDir = join(generator.nuxt.options.rootDir, 'public', '_nuxt')
+          const publicDir = join(generator.nuxt.options.rootDir, 'public', '/')
           removeSync(publicDir)
-          copySync(join(generator.nuxt.options.generate.dir, '_nuxt'), publicDir)
+          copySync(join(generator.nuxt.options.generate.dir, '/'), publicDir)
           copySync(join(generator.nuxt.options.generate.dir, '200.html'), join(publicDir, 'index.html'))
           removeSync(generator.nuxt.options.generate.dir)
         }

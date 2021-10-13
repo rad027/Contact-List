@@ -1,11 +1,11 @@
 <template>
-  <v-sheet width="100%" min-height="100%" style="background : linear-gradient(100deg, rgba(217, 215, 66, 1) 0%, rgba(240, 158, 0, 1) 100%)">
+  <div style="background : linear-gradient(100deg, rgba(217, 215, 66, 1) 0%, rgba(240, 158, 0, 1) 100%); width : 100vw;position : relative;overflow : hidden">
     <v-row justify="center" align-content="center" align="center" style="min-height : 100%">
-      <v-col cols="6">
+      <v-col cols="10" lg=6 xl=6>
         <v-card>
-          <v-toolbar>
-            <v-toolbar-title class="title">WELCOME TO SUITERUS TECHNOLOGIES INC.`s <br>FRONTEND TEMPLATE</v-toolbar-title>
-          </v-toolbar>
+          <v-card-title class="elevation-1">
+            WELCOME TO SUITERUS TECHNOLOGIES INC.`s <br>FRONTEND TEMPLATE
+          </v-card-title>
           <v-card-text>
             <p>Features : </p>
             <ul>
@@ -28,7 +28,7 @@
         </v-card>
       </v-col>
     </v-row>
-  </v-sheet>
+  </div>
 </template>
 
 <script>

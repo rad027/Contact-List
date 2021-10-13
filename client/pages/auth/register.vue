@@ -1,117 +1,133 @@
 <template>
-  <div class="row">
-    <div class="col-lg-8 m-auto">
-      <card v-if="mustVerifyEmail" :title="$t('register')">
-        <div class="alert alert-success" role="alert">
-          {{ $t('verify_email_address') }}
-        </div>
-      </card>
-      <card v-else :title="$t('register')">
-        <form @submit.prevent="register" @keydown="form.onKeydown($event)">
-          <!-- Name -->
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">{{ $t('name') }}</label>
-            <div class="col-md-7">
-              <input v-model="form.name" :class="{ 'is-invalid': form.errors.has('name') }" type="text" name="name" class="form-control">
-              <has-error :form="form" field="name" />
-            </div>
-          </div>
-
-          <!-- Email -->
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">{{ $t('email') }}</label>
-            <div class="col-md-7">
-              <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" type="email" name="email" class="form-control">
-              <has-error :form="form" field="email" />
-            </div>
-          </div>
-
-          <!-- Password -->
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">{{ $t('password') }}</label>
-            <div class="col-md-7">
-              <input v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }" type="password" name="password" class="form-control">
-              <has-error :form="form" field="password" />
-            </div>
-          </div>
-
-          <!-- Password Confirmation -->
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">{{ $t('confirm_password') }}</label>
-            <div class="col-md-7">
-              <input v-model="form.password_confirmation" :class="{ 'is-invalid': form.errors.has('password_confirmation') }" type="password" name="password_confirmation"
-                     class="form-control"
-              >
-              <has-error :form="form" field="password_confirmation" />
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <div class="col-md-7 offset-md-3 d-flex">
-              <!-- Submit Button -->
-              <v-button :loading="form.busy">
-                {{ $t('register') }}
-              </v-button>
-
-              <!-- GitHub Login Button -->
-              <login-with-github />
-            </div>
-          </div>
-        </form>
-      </card>
-    </div>
+  <div class="px-5" style="background : linear-gradient(100deg, rgba(217, 215, 66, 1) 0%, rgba(240, 158, 0, 1) 100%); width : 100vw;position : relative;overflow : hidden">
+    <v-row justify="center" align="center" style="height : 100vh">
+        <v-card max-width="400px">
+          <v-card-title class="elevation-1">
+            REGISTER
+          </v-card-title>
+          <v-form ref="loginForm" lazy-validation v-model="form.valid" @submit.prevent="register">
+            <v-card-text>
+              <v-row>
+                <v-col cols="12">
+                  <v-text-field class="rounded-0" v-model="form.data.name" label="Name" outlined dense :rules="form.rules.name"></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field class="rounded-0" v-model="form.data.email" label="E-Mail" outlined dense :rules="form.rules.email"></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field class="rounded-0" v-model="form.data.password" label="Password" type="password" outlined dense :rules="form.rules.password"></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field class="rounded-0" v-model="form.data.password_confirmation" label="Confirm Password" type="password" outlined dense :rules="form.rules.password_confirmation"></v-text-field>
+                </v-col>
+              </v-row>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn small text exact :to="{ name : 'welcome' }">
+                CANCEL
+              </v-btn>
+              <v-spacer></v-spacer>
+              <v-btn small type="submit" :loading="form.loading">
+                REGISTER
+              </v-btn>
+            </v-card-actions>
+          </v-form>
+        </v-card>
+    </v-row>
   </div>
 </template>
 
 <script>
-import Form from 'vform'
-
 export default {
-  middleware: 'guest',
+  
+  middleware : [ 'guest' ],
 
-  data: () => ({
-    form: new Form({
-      name: '',
-      email: '',
-      password: '',
-      password_confirmation: ''
-    }),
-    mustVerifyEmail: false
-  }),
+  layout : 'simple',
 
-  head () {
-    return { title: this.$t('register') }
+  data(){
+    return {
+      form : {
+        valid : true,
+        loading : false,
+        data : {},
+        rules : {
+          name : [
+            v => !!v || 'Name is a required field.'
+          ],
+          email : [
+            v => !!v || 'E-Mail is a required field.',
+            v => /.+@.+/.test(v) || 'Invalid E-Mail address'
+          ],
+          password : [
+            v => !!v || 'Password is a required field.'
+          ],
+          password_confirmation : [
+            v => !!v || 'Confirm Password is a required field.',
+            v => this.form.data.password === v || 'Password not matched.'
+          ]
+        }
+      },
+      mustVerifyEmail: false
+    }
   },
 
-  methods: {
-    async register () {
-      let data
+  computed : {
+    /*passwordConfirmationRule(){
+      return () => this.form.pa
+    }*/
+  },
 
-      // Register the user.
-      try {
-        const response = await this.form.post('/register')
-        data = response.data
-      } catch (e) {
-        return
-      }
+  methods : {
 
-      // Must verify email fist.
-      if (data.status) {
-        this.mustVerifyEmail = true
-      } else {
-        // Log in the user.
-        const { data: { token } } = await this.form.post('/login')
-
-        // Save the token.
-        this.$store.dispatch('auth/saveToken', { token })
-
-        // Update the user.
-        await this.$store.dispatch('auth/updateUser', { user: data })
-
-        // Redirect home.
-        this.$router.push({ name: 'home' })
+    async register(){
+      if(this.$refs.loginForm.validate()){
+        this.form.loading = true
+        await this.$axios.post('/register', this.form.data)
+          .then(res => {
+            var data = res.data
+            if (data.status) {
+              //this.mustVerifyEmail = true
+              this.$swal.fire({
+                title : 'Registration Successful!',
+                html : 'We`ve sent you a email confirmation. Please check your inbox or spam folder before proceeding on login page.',
+                icon : 'warning'
+              })
+            }else{
+              this.$swal.fire({
+                title : 'Registration Successful!',
+                html : 'You may now login.',
+                icon : 'success'
+              }).then((r) => {
+                if(r.isConfirmed){
+                  this.$router.push({ name : 'login' })
+                }
+              })
+            }
+          })
+          .catch(err => {
+            if(err.response.status === '500'){
+              this.$swal.fire({
+                title : '500 Internal Server Error!',
+                html : 'Please contact us to fix it.',
+                icon : 'error'
+              })
+            }else{
+              var x = ''
+              this.$jquery.each(err.response.data.errors,(i,v) => {
+                x += v + "<br>"
+              })
+              this.$swal.fire({
+                title : 'Input errors!',
+                html : x,
+                icon : 'error'
+              })
+            }
+          })
+        this.form.loading = false
       }
     }
+
   }
+
 }
 </script>

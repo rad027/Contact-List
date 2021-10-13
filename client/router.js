@@ -1,6 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import { scrollBehavior } from '~/utils'
+import axios from 'axios'
+import Swal from 'sweetalert2'
+import jquery from 'jquery'
+
+
+Vue.prototype.$axios = axios
+Vue.prototype.$swal = Swal
+Vue.prototype.$jquery = jquery
 
 Vue.use(Router)
 
