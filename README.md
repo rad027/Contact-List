@@ -15,8 +15,7 @@ cp .env.example .env
 copy .env.example .env
 
 # edit .env file
-APP_URL="localhost:8000" #you can also put here your api domain/url.
-CLIENT_URL="localhost:3000"
+APP_URL="https://<project-name>.test" #you can also put here your api domain/url.
 
 DB_DATABASE=<your_db_name>
 DB_USERNAME=<your_db_username>
