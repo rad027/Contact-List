@@ -1,0 +1,21 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "nuxt -c client/nuxt.config.js",
+    "build": "nuxt build -c client/nuxt.config.js",
+    "start": "nuxt start -c client/nuxt.config.js",
+    "lint": "eslint --fix --ext .js,.vue client/"
+  },
+  "dependencies": {
+    "@nuxtjs/router": "^1.5.0",
+    "dotenv": "^8.2.0",
+    "nuxt": "^2.14.7",
+    "vue-i18n": "^8.22.2"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.12.1",
+    "@nuxtjs/eslint-config": "^5.0.0",
+    "eslint": "^7.14.0",
+    "fs-extra": "^9.0.1"
+  }
+}
