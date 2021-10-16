@@ -6,11 +6,12 @@ import fs from 'fs'
 module.exports = {
 
   server: {
-    hosname : 'project-dokyumento.test',
+    hostname : 'assignment1.test',
     port: 1027, // default: 3000,
     https: {
-      key: fs.readFileSync(resolve('/webserver/', 'localhost3.key')),
-      cert: fs.readFileSync(resolve('/webserver/', 'localhost3.crt'))
+      //change `<username>` with your machine username
+      key: fs.readFileSync(resolve('C:/Users/<username>/.config/valet/Certificates/', 'assignment1.test.key')),
+      cert: fs.readFileSync(resolve('C:/Users/<username>/.config/valet/Certificates/', 'assignment1.test.crt'))
     }
   },
 
@@ -27,7 +28,7 @@ module.exports = {
 
   head: {
     title: process.env.APP_NAME,
-    titleTemplate: '%s - ' + process.env.APP_NAME,
+    titleTemplate: '%s | ' + process.env.APP_NAME,
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
