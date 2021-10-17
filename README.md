@@ -24,7 +24,7 @@ DB_PASSWORD=<your_db_password>
 # run these necessary commands
 php artisan key:generate
 php artisan jwt:secret
-php artisan migrate
+php artisan migrate:fresh --seed
 npm run build
 ```
 
