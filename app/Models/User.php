@@ -9,11 +9,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
 {
     use Notifiable,
-        HasFactory;
+        HasFactory,
+        HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -51,7 +53,12 @@ class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
      * @var array
      */
     protected $appends = [
-        'photo_url',
+        'photo_url'
+    ];
+
+    protected $with = [
+        'roles',
+        'permissions'
     ];
 
     /**

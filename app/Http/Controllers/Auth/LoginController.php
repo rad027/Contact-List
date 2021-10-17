@@ -59,6 +59,12 @@ class LoginController extends Controller
 
         $token = (string) $this->guard()->getToken();
         $expiration = $this->guard()->getPayload()->get('exp');
+        $user = $this->guard()->user();
+        if(!$user->can('can login')){
+            return response()->json([
+                'errors'    =>  [ 'You are currently banned for log in.' ]
+            ],403);
+        }
 
         return response()->json([
             'token' => $token,

@@ -11,6 +11,10 @@ use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+//developer controllers
+use App\Http\Controllers\DeveloperTools\UsersController as DT_UC;
+use App\Http\Controllers\DeveloperTools\ToolsController as DT_TC;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -33,6 +37,29 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::patch('settings/profile', [ProfileController::class, 'update']);
     Route::patch('settings/password', [PasswordController::class, 'update']);
+
+    //functions
+    Route::group([ 'prefix' => 'functions'], function(){
+        //developer tools
+        Route::group([ 'middleware' => [ 'role:Developer|Super Admin|Admin' ] ], function(){
+            //fetch all roles and permissions
+                //roles
+                Route::post('roles/all', [ DT_TC::class, 'role_list' ])->middleware([ 'permission:can list user' ]);
+                //roles
+                Route::post('permissions/all', [ DT_TC::class, 'permission_list' ])->middleware([ 'permission:can list user' ]);
+            //user management
+            Route::group([ 'prefix' => 'users' ], function(){
+                //list
+                Route::post('list', [ DT_UC::class, 'init_list' ])->middleware([ 'permission:can list user' ]);
+                //create
+                Route::post('create', [ DT_UC::class, 'create' ])->middleware([ 'permission:can create user' ]);
+                //update
+                Route::post('update', [ DT_UC::class, 'update' ])->middleware([ 'permission:can update user' ]);
+                //ban process
+                Route::post('ban/process', [ DT_UC::class, 'ban_process' ])->middleware([ 'permission:can update user' ]);
+            });
+        });
+    });
 });
 
 Route::group(['middleware' => 'guest:api'], function () {
