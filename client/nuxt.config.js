@@ -7,7 +7,7 @@ module.exports = {
 
   server: {
     //change `<hotename>` with your generated domain by valet
-    hostname : 'project-dokyumento.test',
+    hostname : 'frontend.template.demo.suiterus.com',
     port: 1027, // default: 3000,
     https: {
       //change `<username>` with your machine username
