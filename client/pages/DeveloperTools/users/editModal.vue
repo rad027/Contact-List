@@ -119,7 +119,6 @@ export default {
 
     async created(){
         this.form.data = Object.assign({}, this.old)
-        console.log(this.form.data)
         //fetch roles and permissions
         await this.$axios.post('/functions/roles/all')
             .then(res => {
@@ -170,7 +169,6 @@ export default {
         async updateUser(){
             if(this.$refs.editForm.validate()){
                 this.form.loading = true
-                console.log(this.form.data)
                 await this.$axios.post('/functions/users/update', this.form.data)
                     .then(async res => {
                         var x = res.data

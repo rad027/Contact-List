@@ -2,7 +2,7 @@
   <v-app>
     <div class="layout">
       <v-app-bar app clipped-left color="white">
-        <v-img src="https://i.postimg.cc/3rBJmXYt/nkti-logo.png" contain class="mx-2 my-3" max-height="60" max-width="200"></v-img>
+        <v-img src="https://suiterus.com/templates/g5_helium/custom/images/logo-suiterus.png" contain class="mx-2 my-3" max-height="60" max-width="200"></v-img>
         <v-spacer></v-spacer>
         <v-btn text>
           Administrative
@@ -203,7 +203,7 @@ export default {
           ).then((v)=>{
             if(v.isConfirmed){
               // Redirect to login.
-              this.$router.push({ name: 'login' })
+              this.$router.push({ name: 'welcome' })
             }
           })
         }
