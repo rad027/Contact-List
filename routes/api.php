@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 //developer controllers
 use App\Http\Controllers\DeveloperTools\UsersController as DT_UC;
 use App\Http\Controllers\DeveloperTools\ToolsController as DT_TC;
+use App\Http\Controllers\DeveloperTools\RolesController as DT_RC;
+use App\Http\Controllers\DeveloperTools\PermissionsController as DT_PC;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,12 +53,40 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::group([ 'prefix' => 'users' ], function(){
                 //list
                 Route::post('list', [ DT_UC::class, 'init_list' ])->middleware([ 'permission:can list user' ]);
+                //list
+                Route::post('search', [ DT_UC::class, 'search_list' ])->middleware([ 'permission:can list user' ]);
                 //create
                 Route::post('create', [ DT_UC::class, 'create' ])->middleware([ 'permission:can create user' ]);
                 //update
                 Route::post('update', [ DT_UC::class, 'update' ])->middleware([ 'permission:can update user' ]);
                 //ban process
                 Route::post('ban/process', [ DT_UC::class, 'ban_process' ])->middleware([ 'permission:can update user' ]);
+            });
+            //role management
+            Route::group([ 'prefix' => 'roles' ], function(){
+                //list
+                Route::post('list', [ DT_RC::class, 'init_list' ])->middleware([ 'permission:can list role' ]);
+                //list
+                Route::post('search', [ DT_RC::class, 'search_list' ])->middleware([ 'permission:can list role' ]);
+                //create
+                Route::post('create', [ DT_RC::class, 'create' ])->middleware([ 'permission:can create role' ]);
+                //update
+                Route::post('update', [ DT_RC::class, 'update' ])->middleware([ 'permission:can update role' ]);
+                //delete
+                Route::post('delete', [ DT_RC::class, 'delete' ])->middleware([ 'permission:can delete role' ]);
+            });
+            //permission management
+            Route::group([ 'prefix' => 'permissions' ], function(){
+                //list
+                Route::post('list', [ DT_PC::class, 'init_list' ])->middleware([ 'permission:can list permission' ]);
+                //list
+                Route::post('search', [ DT_PC::class, 'search_list' ])->middleware([ 'permission:can list permission' ]);
+                //create
+                Route::post('create', [ DT_PC::class, 'create' ])->middleware([ 'permission:can create permission' ]);
+                //update
+                Route::post('update', [ DT_PC::class, 'update' ])->middleware([ 'permission:can update permission' ]);
+                //delete
+                Route::post('delete', [ DT_PC::class, 'delete' ])->middleware([ 'permission:can delete permission' ]);
             });
         });
     });

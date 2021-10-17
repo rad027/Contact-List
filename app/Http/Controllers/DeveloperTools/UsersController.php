@@ -19,6 +19,12 @@ class UsersController extends Controller
             'data'  =>  User::orderBy('id', 'desc')->paginate(10)
         ]);
     }
+    
+    public function search_list(Request $req){
+        return response()->json([
+            'data'  =>  User::where('name', 'LIKE', '%'.$req->keyword.'%')->orWhere('email', 'LIKE', '%'.$req->keyword.'%')->orderBy('id', 'desc')->paginate(10)
+        ]);
+    }
 
     public function create(Request $req){
         $valid = Validator::make($req->all(),[
