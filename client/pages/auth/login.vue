@@ -76,10 +76,20 @@ export default {
             this.$router.push({ name: 'home' })
           })
           .catch(err => {
-            if(err.response.status === '500'){
+            if(err.response.status == '500'){
               this.$swal.fire({
                 title : '500 Internal Server Error!',
                 html : 'Please contact us to fix it.',
+                icon : 'error'
+              })
+            }else if(err.response.status == '403'){
+              var x = ''
+              this.$jquery.each(err.response.data.errors,(i,v) => {
+                x += v + "<br>"
+              })
+              this.$swal.fire({
+                title : 'ACCESS DENIED!',
+                html : x,
                 icon : 'error'
               })
             }else{

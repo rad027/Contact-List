@@ -2,6 +2,29 @@
 
 This git repo is exclusive for the employees of Suiterus Technologies INC. only.
 
+## SYSTEM REQUIREMENTS
+<ul>
+    <li>
+        <p>
+            Nodejs 16.5.0 or latest.<br>
+            Download link(Windows OS 64 Bit only) : <a href="https://nodejs.org/download/release/v16.5.0/node-v16.5.0-x64.msi">https://nodejs.org/download/release/v16.5.0/node-v16.5.0-x64.msi</a>
+        </p>
+    </li>
+    <li>
+        <p>
+            Python 3.10 or latest.<br>
+            Download link(Windows OS 64 Bit only) : <a href="https://www.python.org/ftp/python/3.10.0/python-3.10.0-amd64.exe">https://www.python.org/ftp/python/3.10.0/python-3.10.0-amd64.exe</a>
+        </p>
+    </li>
+    <li>
+        <p>
+            (For windows only)Visual Studio C++ 2017 and Windows Build Tools.<br>
+            Run the following commands on powershell as admin :<br>
+            #: npm install --global windows-build-tools
+        </p>
+    </li>
+</ul>
+
 ## INSTALLATION
 ```
 git clone <repo_url> '<folder_name_here>
@@ -22,13 +45,13 @@ CLIENT_URL="localhost:3000"
 Run in Development Mode
 ```
 npm run dev
-# visit http://localhost:3000 afer
+# visit http://localhost:1027 afer
 ```
 Run in Production Mode
 ```
 npm run build
 npm run start
-# visit http://localhost:3000 afer
+# visit http://localhost:1027 afer
 ```
 <br><br>
 <p>

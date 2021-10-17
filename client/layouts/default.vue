@@ -64,13 +64,33 @@
               <v-list-item-content v-if="auth">
                   <v-list-item-title>{{ user.name }}</v-list-item-title>
                   <v-list-item-subtitle>
-                    <span v-if="user.acctype === 12">Admin</span>
-                    <span v-else>Member</span>
+                    <span v-if="user.roles.length > 0">{{ user.roles[0].name }}</span>
+                    <span v-else>User</span>
                   </v-list-item-subtitle>
               </v-list-item-content>
           </v-list-item>
           <v-divider class="my-1"></v-divider>
+          <template v-for="(nav,navi) in sideNavs">
+            <v-list-item v-if="nav.exact" :key="navi" :exact="nav.exact" :to="{ name : nav.path }">
+                <v-list-item-icon>
+                    <v-icon>{{ nav.icon }}</v-icon>
+                </v-list-item-icon>
 
+                <v-list-item-title>{{ nav.title }}</v-list-item-title>
+            </v-list-item>
+
+            <v-list-group v-if="!nav.exact" :value="nav.submenu.filter(o => o.path === $route.name).length > 0" prepend-icon="mdi-account-circle" no-action :key="navi">
+                <template v-slot:activator>
+                    <v-list-item-title>{{ nav.title }}</v-list-item-title>
+                </template>
+
+                <v-list-item link v-for="(sub,subi) in nav.submenu" :key="subi" :to="{ name : sub.path }" exact>
+                  <v-list-item-content>
+                    <v-list-item-title>{{ sub.title }}</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+            </v-list-group>
+          </template>
         </v-list>
         <template v-slot:append>
             <v-divider class="my-1"></v-divider>
@@ -83,7 +103,7 @@
       </v-navigation-drawer>
       <v-main>
         <v-container fluid class="">
-          <nuxt />
+          <nuxt keep-alive />
         </v-container>
       </v-main>
     </div>
@@ -94,6 +114,11 @@
 import Navbar from '~/components/Navbar'
 
 export default {
+
+  loading : {
+    color : 'green',
+    height : '5px'
+  },
 
   computed : {
     user(){
@@ -110,11 +135,44 @@ export default {
 
   data(){
     return {
-      drawer : true
+      drawer : true,
+      sideNavs : [
+        {
+          title : 'Home',
+          icon : 'mdi-home',
+          path : 'home',
+          exact : true,
+          allowed : [],
+          submenu : []
+        },
+        {
+          title : 'Developer Tools',
+          icon : 'mdi-hammer-wrench',
+          path : '',
+          exact : false,
+          allowed : [],
+          submenu : [
+            {
+              title : 'Users',
+              path : 'developer-tools.users.index'
+            },
+            {
+              title : 'Roles',
+              path : 'developer-tools.roles.index'
+            },
+            {
+              title : 'Permission',
+              path : 'developer-tools.permissions.index'
+            },
+          ]
+        },
+      ]
     }
   },
 
   methods : {
+
+
 
     async logout(){
       this.$swal.fire({

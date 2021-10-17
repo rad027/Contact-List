@@ -14,6 +14,12 @@
               <li>Vuetify JS enabled.</li>
               <li>Customizable Layout per page.</li>
               <li>Customizable middleware and router.</li>
+              <li>
+                <p>Dashboard Features</p>
+                <ul>
+                  <li>User management - Create, Update, Ban/Unban, Set Roles, Set Permissions</li>
+                </ul>
+              </li>
             </ul>
             <br>
             <p>Created by Roldhan Dasalla.</p>
@@ -36,6 +42,8 @@ import { mapGetters } from 'vuex'
 
 export default {
   layout: 'simple',
+
+  middleware : [ 'guest' ],
 
   data: () => ({
     title: process.env.appName

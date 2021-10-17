@@ -6,11 +6,13 @@ import fs from 'fs'
 module.exports = {
 
   server: {
-    hosname : 'project-dokyumento.test',
+    //change `<hotename>` with your generated domain by valet
+    hostname : 'project-dokyumento.test',
     port: 1027, // default: 3000,
     https: {
-      key: fs.readFileSync(resolve('/webserver/', 'localhost3.key')),
-      cert: fs.readFileSync(resolve('/webserver/', 'localhost3.crt'))
+      //change `<username>` with your machine username
+      key: fs.readFileSync(resolve('C:/Users/roldh/.config/valet/Certificates/', 'template-frontend.test.key')),
+      cert: fs.readFileSync(resolve('C:/Users/roldh/.config/valet/Certificates/', 'template-frontend.test.crt'))
     }
   },
 
@@ -27,7 +29,7 @@ module.exports = {
 
   head: {
     title: process.env.APP_NAME,
-    titleTemplate: '%s - ' + process.env.APP_NAME,
+    titleTemplate: '%s | ' + process.env.APP_NAME,
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
