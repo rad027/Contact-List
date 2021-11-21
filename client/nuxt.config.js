@@ -7,12 +7,12 @@ module.exports = {
 
   server: {
     //change `<hotename>` with your generated domain by valet
-    hostname : 'frontend.template.demo.suiterus.com',
-    port: 1027, // default: 3000,
+    hostname : process.env.HOSTNAME || 'localhost',
+    port: process.env.APP_PORT, // default: 3000,
     https: {
       //change `<username>` with your machine username
-      key: fs.readFileSync(resolve('C:/Users/roldh/.config/valet/Certificates/', 'template-frontend.test.key')),
-      cert: fs.readFileSync(resolve('C:/Users/roldh/.config/valet/Certificates/', 'template-frontend.test.crt'))
+      key: fs.readFileSync(resolve(process.env.KEY_PATH, process.env.HOSTNAME + '.key')),
+      cert: fs.readFileSync(resolve(process.env.CERT_PATH, process.env.HOSTNAME + '.crt'))
     }
   },
 
