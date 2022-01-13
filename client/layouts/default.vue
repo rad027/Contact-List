@@ -1,21 +1,10 @@
 <template>
-  <v-app>
+  <v-app v-if="auth">
     <div class="layout">
       <v-app-bar app clipped-left color="white">
-        <v-img src="https://suiterus.com/templates/g5_helium/custom/images/logo-suiterus.png" contain class="mx-2 my-3" max-height="60" max-width="200"></v-img>
+        <v-img src="https://i.imgur.com/ZCqZNke.png" contain class="mx-2 my-3" max-height="60" max-width="200"></v-img>
         <v-spacer></v-spacer>
-        <v-btn text>
-          Administrative
-        </v-btn>
-        <v-btn text class="mx-1" color="purple darken-4">
-          Finance
-        </v-btn>
-        <v-btn text>
-          Procurement
-        </v-btn>
-        <v-btn text>
-          Human Resource
-        </v-btn>
+        
         <template v-slot:extension>
           <v-card tile color="transparent" class="elevation-0" width="100%">
             <v-card-actions class="px-0">
@@ -27,28 +16,9 @@
                   mdi-menu
                 </v-icon>
               </v-app-bar-nav-icon>
-              <v-btn icon depressed color="#2d3270">
-                <v-badge content="9" color="green" overlap>
-                  <v-icon>
-                    mdi-bell
-                  </v-icon>
-                </v-badge>
-              </v-btn>
               <v-spacer></v-spacer>
-              <v-btn text @click.stop="drawer = !drawer" :color="!drawer ? '#2d3270' : 'red'" class="mr-1">
-                {{ drawer ? 'Close Side Bar' : 'Open Side bar' }}
-              </v-btn>
               <v-btn text :to="{ name : 'home' }" exact exact-active-class="nav-active-class">
                 Home
-              </v-btn>
-              <v-btn text>
-                Web Setting
-              </v-btn>
-              <v-btn text>
-                User Management
-              </v-btn>
-              <v-btn text>
-                Profile Settings
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -58,7 +28,7 @@
         <v-list nav dense >
           <v-list-item two-line>
               <v-list-item-avatar class="my-0">
-                  <img src="https://randomuser.me/api/portraits/women/81.jpg" />
+                  <img :src="'https://ui-avatars.com/api/?name='+user.name" />
               </v-list-item-avatar>
 
               <v-list-item-content v-if="auth">
@@ -78,18 +48,20 @@
 
                 <v-list-item-title>{{ nav.title }}</v-list-item-title>
             </v-list-item>
-
-            <v-list-group v-if="!nav.exact" :value="nav.submenu.filter(o => o.path === $route.name).length > 0" prepend-icon="mdi-account-circle" no-action :key="navi">
-                <template v-slot:activator>
-                    <v-list-item-title>{{ nav.title }}</v-list-item-title>
-                </template>
-
-                <v-list-item link v-for="(sub,subi) in nav.submenu" :key="subi" :to="{ name : sub.path }" exact>
-                  <v-list-item-content>
-                    <v-list-item-title>{{ sub.title }}</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-            </v-list-group>
+            <template v-if="!nav.exact">
+              <v-list-group v-if="checkSubmenu(nav.allowed)" :value="nav.submenu.filter(o => o.path === $route.name).length > 0" prepend-icon="mdi-account-circle" no-action :key="navi">
+                  <template v-slot:activator>
+                      <v-list-item-title>{{ nav.title }}</v-list-item-title>
+                  </template>
+                  <template v-for="(sub,subi) in nav.submenu">
+                    <v-list-item link :key="subi" :to="{ name : sub.path }" exact v-if="checkSubmenu(sub.allowed)">
+                      <v-list-item-content>
+                        <v-list-item-title>{{ sub.title }}</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </template>
+              </v-list-group>
+            </template>
           </template>
         </v-list>
         <template v-slot:append>
@@ -114,6 +86,8 @@
 import Navbar from '~/components/Navbar'
 
 export default {
+
+  middleware : [ 'auth' ],
 
   loading : {
     color : 'green',
@@ -144,35 +118,31 @@ export default {
           exact : true,
           allowed : [],
           submenu : []
-        },
-        {
-          title : 'Developer Tools',
-          icon : 'mdi-hammer-wrench',
-          path : '',
-          exact : false,
-          allowed : [],
-          submenu : [
-            {
-              title : 'Users',
-              path : 'developer-tools.users.index'
-            },
-            {
-              title : 'Roles',
-              path : 'developer-tools.roles.index'
-            },
-            {
-              title : 'Permission',
-              path : 'developer-tools.permissions.index'
-            },
-          ]
-        },
+        }
       ]
     }
   },
 
   methods : {
 
-
+    checkSubmenu(allowed){
+      if(allowed.length === 0){
+        return true
+      }else{
+        if(allowed.some((o) => {
+          var x = this.user.roles
+          var y = this.user.permissions
+          var all = x.concat(y)
+          return all.find(u => {
+            return u.name === o
+          })
+        })){
+          return true
+        }else{
+          return false
+        }
+      }
+    },
 
     async logout(){
       this.$swal.fire({
@@ -203,7 +173,7 @@ export default {
           ).then((v)=>{
             if(v.isConfirmed){
               // Redirect to login.
-              this.$router.push({ name: 'welcome' })
+              this.$router.push({ name: 'login' })
             }
           })
         }

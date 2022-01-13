@@ -1,6 +1,6 @@
-# SUITERUS TECHNOLOGIES INC.`s FRONTEND TEMPLATE
+# RAD`s FRONTEND TEMPLATE
 
-This git repo is exclusive for the employees of Suiterus Technologies INC. only.
+This git repo is exclusive for the employees of RAD. only.
 
 ## SYSTEM REQUIREMENTS
 <ul>
@@ -54,24 +54,7 @@ npm run start
 # visit http://localhost:1027 afer
 ```
 
-# Demo link
-<a href="https://frontend.template.demo.suiterus.com/" target="_blank">Click here to see the demo</a>
-
 <br><br>
 <p>
     Created by Roldhan Dasalla
 </p>
-<p>
-    Dependecy template : <a href="https://github.com/cretueusebiu/laravel-nuxt" target="_blank">https://github.com/cretueusebiu/laravel-nuxt</a>
-</p>
-
-# Change logs
-
-## UPDATE 4.0
-<ul>
-    <li>
-        <p>
-            Updated package.json to support latest nodejs and npm versions.</a>
-        </p>
-    </li>
-</ul>

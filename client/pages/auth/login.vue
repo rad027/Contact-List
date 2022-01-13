@@ -1,5 +1,5 @@
 <template>
-  <div class="px-5" style="background : linear-gradient(100deg, rgba(217, 215, 66, 1) 0%, rgba(240, 158, 0, 1) 100%); width : 100vw;position : relative;overflow : hidden">
+  <div class="px-5" style="background : url('https://cccwstl.com/wp-content/uploads/2017/09/striped-background.png') top left repeat; width : 100vw;position : relative;overflow : hidden">
     <v-row justify="center" align="center" style="height : 100vh">
         <v-card max-width="400px">
           <v-card-title class="elevation-1">
@@ -21,6 +21,9 @@
                 CANCEL
               </v-btn>
               <v-spacer></v-spacer>
+              <v-btn small text class="mr-1" :to="{ name : 'register' }">
+                REGISTER
+              </v-btn>
               <v-btn small type="submit" :loading="form.loading">
                 LOGIN
               </v-btn>
