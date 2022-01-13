@@ -62,10 +62,15 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+        //give role
+        $user->assignRole('User');
+        //give permissions
+        $user->syncPermissions([ 'can login', 'can list contact', 'can update contact', 'can create contact', 'can delete contact' ]);
+        return $user;
     }
 }

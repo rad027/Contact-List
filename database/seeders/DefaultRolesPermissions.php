@@ -72,6 +72,23 @@ class DefaultRolesPermissions extends Seeder
             [
                 'name'  =>  'can delete permission',
                 'guard_name'    =>  'api'
+            ],
+            //contact management permissions
+            [
+                'name'  =>  'can list contact',
+                'guard_name'    =>  'api'
+            ],
+            [
+                'name'  =>  'can create contact',
+                'guard_name'    =>  'api'
+            ],
+            [
+                'name'  =>  'can update contact',
+                'guard_name'    =>  'api'
+            ],
+            [
+                'name'  =>  'can delete contact',
+                'guard_name'    =>  'api'
             ]
         ];
 

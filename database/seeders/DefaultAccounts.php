@@ -19,7 +19,7 @@ class DefaultAccounts extends Seeder
         //create dev account
         $u = User::create([
             'name'  =>  'Developer Account',
-            'email' =>  'developer@suiterus.com',
+            'email' =>  'developer@roldhandasalla.com',
             'password' => bcrypt('developer')
         ]);
         //give role

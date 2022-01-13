@@ -1,8 +1,8 @@
 <template>
     <div class="main">
         <header>
-            <h1>{ Suiterus Technologies INC. }</h1>
-            <h3>Are you interested here? Contact us at <a href="#">support@suiterus.com</a></h3>
+            <h1>{ Roldhan Aran Dasalla }</h1>
+            <h3>Are you interested here? Contact us at <a href="#">roldhandasalla27@gmail.com</a></h3>
         </header>
     </div>
 </template>

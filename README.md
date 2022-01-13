@@ -1,6 +1,6 @@
-# SUITERUS TECHNOLOGIES INC.`s BACKEND TEMPLATE
+# RAD`s BACKEND TEMPLATE
 
-This git repo is exclusive for the employees of Suiterus Technologies INC. only.
+This git repo is exclusive for RAD Projects only. This is a modified start tempalte, credits has been given at the end of this document.
 
 ## INSTALLATION
 ```
@@ -29,7 +29,7 @@ npm run build
 ```
 
 ## Supported in valet users only
-If you are using other webserver setup aside from valet. Please contact roldhan.dasalla@suiterus.com for assistance.
+If you are using other webserver setup aside from valet. Please contact roldhandasalla27@gmail.com for assistance.
 
 ## Valet commands
 Create local domain & virtual host with SSL. 
@@ -56,7 +56,4 @@ http://<project-name>.test
 <br><br>
 <p>
     Created by Roldhan Dasalla
-</p>
-<p>
-    Dependecy template : <a href="https://github.com/cretueusebiu/laravel-nuxt" target="_blank">https://github.com/cretueusebiu/laravel-nuxt</a>
 </p>

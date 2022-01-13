@@ -9,7 +9,7 @@ module.exports = {
 
   env: {
     apiUrl: process.env.API_URL || process.env.APP_URL + '/api',
-    appName: process.env.APP_NAME || 'STI - Backend Template',
+    appName: process.env.APP_NAME || 'RAD - Backend Template',
     appLocale: process.env.APP_LOCALE || 'en',
     githubAuth: !!process.env.GITHUB_CLIENT_ID
   },
@@ -20,7 +20,7 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'STI - Project Backend Template' }
+      { hid: 'description', name: 'description', content: 'RAD - Project Backend Template' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }

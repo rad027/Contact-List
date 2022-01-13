@@ -17,6 +17,8 @@ use App\Http\Controllers\DeveloperTools\ToolsController as DT_TC;
 use App\Http\Controllers\DeveloperTools\RolesController as DT_RC;
 use App\Http\Controllers\DeveloperTools\PermissionsController as DT_PC;
 
+use App\Http\Controllers\ContactController as CC;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -42,6 +44,21 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     //functions
     Route::group([ 'prefix' => 'functions'], function(){
+
+        //contact
+        Route::group([ 'prefix' => 'contacts' ], function(){
+            //list
+            Route::post('list', [ CC::class, 'init_list' ])->middleware([ 'permission:can list contact' ]);
+            //search
+            Route::post('search', [ CC::class, 'search' ])->middleware([ 'permission:can list contact' ]);
+            //create
+            Route::post('create', [ CC::class, 'create' ])->middleware([ 'permission:can create contact' ]);
+            //update
+            Route::post('update', [ CC::class, 'update' ])->middleware([ 'permission:can update contact' ]);
+            //delete
+            Route::post('delete', [ CC::class, 'delete' ])->middleware([ 'permission:can delete contact' ]);
+        });
+
         //developer tools
         Route::group([ 'middleware' => [ 'role:Developer|Super Admin|Admin' ] ], function(){
             //fetch all roles and permissions
